@@ -1,0 +1,8 @@
+as as1?.s
+reloc a.out 50000
+strip a.out
+mv a.out as.n
+as as2?.s
+reloc a.out 50000
+strip a.out
+mv a.out as2.n

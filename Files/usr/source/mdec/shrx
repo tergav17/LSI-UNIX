@@ -1,0 +1,8 @@
+as fsboot.s tty.s rxex.s
+strip a.out
+mv a.out bin/rxboot
+as rx.s
+strip a.out
+mv a.out bin/erxboot
+cp bin/rxboot /dev/rx0
+bin/ldblk bin/erxboot /dev/rx0 1000
