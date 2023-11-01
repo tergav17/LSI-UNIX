@@ -24,7 +24,7 @@
  * the following 4 variables may be modified.
  */
 
-#define	NPROC	4	/* max number of processes */
+#define	NPROC	8	/* max number of processes */
 #define	NBLKS	3000	/* 256-word blocks per diskette */
 #define SYSSIZ	10
 #define	USRSIZ	18	/* user program size in 1K words */
@@ -36,7 +36,7 @@
 #define NSWAP	(NPROC*SWPSIZ+2)
 #endif
 #ifndef BGOPTION
-#define NSWAP	((NPROC-1)*SWPSIZ+1)
+#define NSWAP	220
 #endif
 #define	SWPLO	(NBLKS-NSWAP)
 
