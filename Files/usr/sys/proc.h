@@ -13,7 +13,7 @@ struct	proc
 	int	p_wchan;	/* event process is awaiting */
 	int	p_clktim;	/* time to alarm clock signal */
 	int	p_size;		/* size of swap image in 32 word blocks */
-	int swbase;		/* base block for swapping */
+	int swbase;		/* base block of swap image */
 #ifdef BGOPTION
 } proc[NPROC+2];
 #endif
