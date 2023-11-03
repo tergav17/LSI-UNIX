@@ -228,7 +228,9 @@ exit()
 	u.u_procp = &proc[cpid];
 #endif
 #ifndef BGOPTION
-	q = getblk(SWAPDEV, SWPLO+cpid*SWPSIZ);
+	
+	q = getblk(SWAPDEV, proc[cpid].swbase)
+	/* q = getblk(SWAPDEV, SWPLO+cpid*SWPSIZ); */
 	bcopy(&u, q->b_addr, 256);
 	bwrite(q);
 	if(cpid)
@@ -265,7 +267,8 @@ wait()
 		bp = bread(SWAPDEV, SWPLO+swtab[chpid].sw_blk);
 #endif
 #ifndef BGOPTION
-		bp = bread(SWAPDEV, SWPLO+chpid*SWPSIZ);
+		bp = bread(SWAPDEV, p->swbase);
+		/* bp = bread(SWAPDEV, SWPLO+chpid*SWPSIZ); */
 #endif
 		p->p_stat = NULL;
 		p->p_sig = 0;
@@ -307,6 +310,9 @@ fork()
 		u.u_cutime[1] = 0;
 		u.u_utime = 0;
 		return;
+	} else {
+		u.u_error = EAGAIN;
+		goto out;
 	}
 	u.u_ar0[R0] = cpid+1;
 

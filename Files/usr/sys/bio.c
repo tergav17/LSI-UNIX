@@ -273,9 +273,11 @@ swap(rdflg)
 	
 	/* calculate block base */
 	if (cpid) {
-		swbuf.b_blkno = SWPLO + proc[cpid-1].swbase + ((p->p_size+7)&~07)>>3)
+		p1 = &proc[cpid-1];
+		swbuf.b_blkno = p1->swbase + ((p1->p_size+7)&~07)>>3);
 	} else {
 		swbuf.b_blkno = SWPLO;
+	p->swbase = swbuf.b_blkno;
 	/* swbuf.b_blkno = SWPLO+cpid*SWPSIZ; */
 	swbuf.b_addr = &u;
 	(*bdevsw[SWAPDEV>>8].d_strategy)(&swbuf);
