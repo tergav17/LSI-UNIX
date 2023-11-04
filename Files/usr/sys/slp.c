@@ -126,6 +126,14 @@ newproc()
 	register *rip;
 
 	/*
+	 * ensure there is enough swap space
+	 */
+#ifndef BGOPTION
+	rpp = &proc[cpid];
+	if (rpp->swbase + proc[
+#endif
+
+	/*
 	 * make duplicate entries
 	 * where needed
 	 */

@@ -271,7 +271,7 @@ swap(rdflg)
 	swbuf.b_wcount = -(((p->p_size+7)&~07)<<5);	/* 32 words per block */
 	
 	
-	/* calculate block base */
+	/* calculate block base */ 
 	if (cpid) {
 		p1 = &proc[cpid-1];
 		swbuf.b_blkno = p1->swbase + ((p1->p_size+7)&~07)>>3);
