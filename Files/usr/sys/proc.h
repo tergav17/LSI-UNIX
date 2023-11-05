@@ -14,6 +14,7 @@ struct	proc
 	int	p_clktim;	/* time to alarm clock signal */
 	int	p_size;		/* size of swap image in 32 word blocks */
 	int swbase;		/* base block of swap image */
+	int swceil;		/* base block of next swap image */
 #ifdef BGOPTION
 } proc[NPROC+2];
 #endif

@@ -130,7 +130,10 @@ newproc()
 	 */
 #ifndef BGOPTION
 	rpp = &proc[cpid];
-	if (rpp->swbase + proc[
+	if (cpid) {
+		rpp->swbase = proc[cpid-1].swceil;
+	} else
+		rpp->swbase = 0;
 #endif
 
 	/*
