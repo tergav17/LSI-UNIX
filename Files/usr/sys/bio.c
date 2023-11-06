@@ -266,18 +266,12 @@ swap(rdflg)
 		} else
 			p->p_size = SWPSIZ<<3;
 	}
+
 	swbuf.b_flags = B_BUSY | rdflg;
 	swbuf.b_dev = SWAPDEV;
 	swbuf.b_wcount = -(((p->p_size+7)&~07)<<5);	/* 32 words per block */
-	
-	
-	/* calculate block base */ 
-	if (cpid) {
-		p1 = &proc[cpid-1];
-		swbuf.b_blkno = p1->swbase + ((p1->p_size+7)&~07)>>3);
-	} else {
-		swbuf.b_blkno = SWPLO;
-	p->swbase = swbuf.b_blkno;
+	swbuf.b_blkno = p->swbase;
+
 	/* swbuf.b_blkno = SWPLO+cpid*SWPSIZ; */
 	swbuf.b_addr = &u;
 	(*bdevsw[SWAPDEV>>8].d_strategy)(&swbuf);

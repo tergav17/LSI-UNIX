@@ -130,10 +130,23 @@ newproc()
 	 */
 #ifndef BGOPTION
 	rpp = &proc[cpid];
+	
+	/* set base of swap image */
 	if (cpid) {
 		rpp->swbase = proc[cpid-1].swceil;
+	} else {
+		rpp->swbase = SWPLO;
+	}
+	
+	/* calculate size of time */
+	if(p2 <= p1) {
+		rpp->p_size = u.u_dsize + USIZE +
+			((TOPUSR>>6)&01777) - ((p1.integ>>6)&01777);
 	} else
-		rpp->swbase = 0;
+		rpp->p_size = SWPSIZ<<3;
+	
+	/* get value of swap ceil */
+	
 #endif
 
 	/*
