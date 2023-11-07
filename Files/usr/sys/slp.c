@@ -123,7 +123,7 @@ setrun(p)
 newproc()
 {
 	register struct proc *rpp;
-	register *rip;
+	register *p1, *p2;
 
 	/*
 	 * ensure there is enough swap space
@@ -139,6 +139,8 @@ newproc()
 	}
 	
 	/* calculate size of time */
+	p1 = USTACK->integ;
+	p2 = TOPSYS + (u.u_dsize<<6) + (p1.integ&077);
 	if(p2 <= p1) {
 		rpp->p_size = u.u_dsize + USIZE +
 			((TOPUSR>>6)&01777) - ((p1.integ>>6)&01777);
@@ -154,16 +156,16 @@ newproc()
 	 * where needed
 	 */
 
-	for(rip = &u.u_ofile[0]; rip < &u.u_ofile[NOFILE];)
-		if((rpp = *rip++) != NULL)
+	for(p1 = &u.u_ofile[0]; p1 < &u.u_ofile[NOFILE];)
+		if((rpp = *p1++) != NULL)
 			rpp->f_count++;
 	u.u_cdir->i_count++;
 	savu(u.u_ssav);	/* save state of parent */
 #ifdef BGOPTION
 	retu(u.u_rsav);
 #endif
-	rip = u.u_procp;
-	rip->p_stat = SIDL;
+	p1 = u.u_procp;
+	p1->p_stat = SIDL;
 #ifdef BGOPTION
 	swap(B_WRITE,cpid);
 #endif

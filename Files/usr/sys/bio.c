@@ -259,12 +259,9 @@ swap(rdflg)
 		p1 = USTACK->integ;
 		p2 = TOPSYS + (u.u_dsize<<6) + (p1.integ&077);
 		if(p2 <= p1) {
-			p->p_size = u.u_dsize + USIZE +
-			    ((TOPUSR>>6)&01777) - ((p1.integ>>6)&01777);
 			while(p1.chrp < TOPUSR)
 				*p2++ = *p1++;
-		} else
-			p->p_size = SWPSIZ<<3;
+		}
 	}
 
 	swbuf.b_flags = B_BUSY | rdflg;
