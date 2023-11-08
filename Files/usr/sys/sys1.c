@@ -229,7 +229,7 @@ exit()
 #endif
 #ifndef BGOPTION
 	
-	q = getblk(SWAPDEV, proc[cpid].swbase)
+	q = getblk(SWAPDEV, proc[cpid].swbase);
 	/* q = getblk(SWAPDEV, SWPLO+cpid*SWPSIZ); */
 	bcopy(&u, q->b_addr, 256);
 	bwrite(q);
