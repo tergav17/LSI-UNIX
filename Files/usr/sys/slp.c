@@ -127,6 +127,7 @@ newproc()
 {
 	register struct proc *rpp;
 	register *p1, *p2;
+	int tmp;
 
 	/*
 	 * ensure there is enough swap space
@@ -135,9 +136,7 @@ newproc()
 	rpp = &proc[cpid];
 	
 	/* set base of swap image */
-	if (cpid) {
-		rpp->swbase = proc[cpid-1].swceil;
-	} else {
+	if (!cpid) {
 		rpp->swbase = SWPLO;
 	}
 	
@@ -151,10 +150,16 @@ newproc()
 		rpp->p_size = SWPSIZ<<3;
 	
 	/* get value of swap ceil */
-	rpp->swceil = rpp->swbase + ((rpp->p_size+7)&~07)>>3;
+	tmp = ((rpp->p_size+7)&~07)>>3;
+	rpp->swceil = rpp->swbase + tmp;
 	if (rpp->swceil > SWPLO + NSWAP) {
 		/* out of swap */
-		return 0;
+		return 2;
+	}
+	
+	/* set base of next proc */
+	if (cpid < NPROC-1) {
+		proc[cpid+1].swbase = rpp->swceil;
 	}
 	
 #endif

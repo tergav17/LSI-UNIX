@@ -291,6 +291,7 @@ wait()
  */
 fork()
 {
+	register s;
 
 #ifdef BGOPTION
 	if((cpid == NPROC-1) || (u.u_procp == bgproc)) {
@@ -301,7 +302,8 @@ fork()
 		u.u_error = EAGAIN;
 		goto out;
 	}
-	if(newproc()) {
+	s = newproc();
+	if (s == 1) {
 		u.u_ar0[R0] = cpid;
 		u.u_cstime[0] = 0;
 		u.u_cstime[1] = 0;
@@ -310,7 +312,7 @@ fork()
 		u.u_cutime[1] = 0;
 		u.u_utime = 0;
 		return;
-	} else {
+	} else if (s == 2) {
 		u.u_error = EAGAIN;
 		goto out;
 	}
