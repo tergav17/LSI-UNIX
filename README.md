@@ -11,6 +11,7 @@ This version of LSX has been modified to support the following:
 - Proper inode allocation for large file systems
 - Execution of `/etc/rc` script on startup
 - Swap partition on the root disk
+- Dynamic use of swap space depending on program size
 - Various utilities like cat, dd, etc..
 
 The included system images for the RK05 and RX02 are both built to run on a PDP-11/03 with 56Kb of RAM and no EIS. Having a CPU with EIS will make things run faster, however.
