@@ -16,6 +16,13 @@ This version of LSX has been modified to support the following:
 
 The included system images for the RK05 and RX02 are both built to run on a PDP-11/03 with 56Kb of RAM and no EIS. Having a CPU with EIS will make things run faster, however.
 
+In the future, I plan to support the following:
+- A fix for the mysterious "backspace" bug
+- MSCP boot and driver
+- Floppy drive optimizations
+- Improved shell
+
+# EDS Editor
 Also included in the distribution is the `eds` editor. This is a VT100 screen editor that I wrote off of the bones of the original `ed` editor. It works a little like an extremely cut down version of nano. The commands are:
 
 - CTRL+Q: Exit the editor
