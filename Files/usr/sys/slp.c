@@ -152,7 +152,7 @@ newproc()
 	/* get value of swap ceil */
 	tmp = ((rpp->p_size+7)&~07)>>3;
 	rpp->swceil = rpp->swbase + tmp;
-	if (rpp->swceil > SWPLO + NSWAP) {
+	if (rpp->swceil >= SWPLO + NSWAP) {
 		/* out of swap */
 		return 2;
 	}
