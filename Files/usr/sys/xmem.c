@@ -39,12 +39,17 @@ xmstart()
         register struct buf *bp;
 
 nextbuf:
-        if ((bp = rktab.d_actf) == 0)
+        if ((bp = xmtab.d_actf) == 0)
                 return;
         xmtab.d_active++;
         bp = xmtab.d_actf;
 		
 		/* do transfer */
+		if (bp->b_flags&B_READ) {
+			/* read from memory */
+		} else {
+			/* write to memory */
+		}
 		
 		/* complete and next transfer */
 		xmtab.d_active = 0;
