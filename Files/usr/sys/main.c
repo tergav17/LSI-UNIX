@@ -47,7 +47,29 @@ int	icode[]
 main()
 {
 	extern schar;
-	register i1, *p;
+	register i1, i2, *p;
+
+
+	/*
+	 * initalize mmu (optional)
+	 */
+#ifdef MMU
+
+	/* setup page table */
+	p = 0172300;
+	i1 = 8;
+	i2 = 0;
+	while (i1--) {
+		*p = 077406;
+		*(p+040) = i2;
+		p++;
+		i2 =+ 0200;
+	}
+
+	/* mmu enable */
+	p = 0177572;
+	*p = 01;
+#endif
 
 	/*
 	 * zero and free all of core
